@@ -31,20 +31,20 @@
 	</publications>
 	<dependencies>
 		<dependency org="nz.co.senanque" name="maduradocs" rev="5.0.4" conf="docs->default"/>
-		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="1.7.rc29" conf="default->default">
+		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="1.7" conf="default->default">
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-objects" rev="1.8.rc5" conf="generate->generate">
+		<dependency org="nz.co.senanque" name="madura-objects" rev="1.8" conf="generate->generate">
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-objects" rev="1.8.rc5" conf="default->default">
+		<dependency org="nz.co.senanque" name="madura-objects" rev="1.8" conf="default->default">
 			<exclude org="javax.xml.bind" module="jaxb"/>
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
 		<dependency org="nz.co.senanque" name="madura-rules" rev="1.0" conf="default,generate->default,generate">
 			<exclude org="nz.co.senanque" module="madura-objects"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.4.rc1" conf="default->default"/>
+		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.4" conf="default->default"/>
 		<dependency org="org.apache.ant" name="ant" rev="1.8.0" conf="generate->default"/>
 		<dependency org="javax.servlet" name="servletapi" rev="2.4" conf="compile->default"/>
 		<dependency org="org.apache.commons" name="commons-io" rev="1.4" conf="default->default"/>

@@ -1,10 +1,11 @@
-If you are using Eclipse then please run the test_copy target in build.xml using ant
+If you are using Eclipse then please run the build-jar target in build.xml using ant
 This will populate your ivy cache correctly and compiles from Eclipse will work then.
 
 The build file contains the following targets:
 
-build-war:
-This builds the project and leaves the results in madura-pizzaorder/temp/*.war
+build-jar:
+This builds the project and leaves the results in madura-pizzaorder-bundle/temp/pizza*.jar
+If you have specified a deploy.target in build.properties then the jar file will be copied to that location 
 
 Files and directories:
 
@@ -33,10 +34,7 @@ docs/:
 Holds the documentation files.
 
 temp/:
-Scratch directory that us used during the build. Subdirectories that may be of interest are:
-package/: this is where the files packaged for distribution to ivyroundup are placed
-pdf/: generated documentation
-results/: jar files, source zip and javadocs zip
+Scratch directory that us used during the build.
 
 src/:
 The java etc source files

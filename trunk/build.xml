@@ -55,12 +55,16 @@
 			<fileset dir="./bin" includes="**/*.xml,**/*.properties,**/*.class,**/*.png"/>
 		</jar>
 		<copy file="${basedir}/temp/pizza-${bundle.version}.jar" todir="/home/roger/madura3/madura-perspectives-manager/temp/bundles"/>
-		<!--<ant target="docs"/>-->
+		<ant target="docs"/>
 		<property file="${basedir}/bin/${ant.project.name}.properties"/>
 		<echo message="${ant.project.name} distribute_copy:: complete"/>
 		<echo message="Revision Number  ${revision.number}"/>		
 		<echo message="Build Date    ${build.date}"/>		
 		<echo message="Build Version ${build.version}"/>
+	</target>
+	
+	<target name="deploy" if="deploy.target">
+		<copyfile dest="${deploy.target}/${project.name}.war" src="${basedir}/temp/${project.name}.war"/>
 	</target>
 
 	<target name="CopyToRemoteRepo-local">
