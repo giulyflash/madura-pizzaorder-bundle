@@ -1,0 +1,86 @@
+<!--
+    Copyright 2012 Roger Parkinson
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may
+    not use this file except in compliance with the License. You may obtain
+    a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+
+<project name="madura-pizzaorder-bundle" default="build-jar" basedir="." xmlns:ivy="urn:ivy-ant">
+
+	<property file="./build.properties"/>
+	  <tstamp>
+	    <format property="year" pattern="yyyy"/>
+	    <format property="Year" pattern="yyyy"/>
+	  </tstamp>
+
+	<property name="srcpath" value="${basedir}/src:${basedir}/generated"/>
+	<property name="bin.dir" value="${basedir}/bin"/>
+	<property name="bundle.context" value="bundle-spring.xml"/>
+	<property name="bundle.version" value="1.0"/>
+
+	
+    <path id="libs">
+    	<fileset dir="${basedir}/temp/compile"/>
+    	<fileset dir="${basedir}" includes="*.jar"/>
+    </path>
+	<import file="ant-targets.xml"/>
+
+	<target name="build-jar" description="build the bundle jar file">
+		<echo message="${ant.project.name} build-jar: start"/>
+		<mkdir dir="temp"/>
+		<ant target="retrieve-dependencies"/>
+		<manifest-macro manifest.dir="generated/META-INF"/>
+		<ant antfile="build-generated.xml" target="generateObjectsFromXSD" inheritall="true"/>
+		<ant antfile="build-generated.xml" target="generateRules" inheritall="true"/>
+		<ant target="compile-distribute-source"/>
+		<updatebuild-macro dir="${basedir}/bin"/>
+		<jar jarfile="${basedir}/temp/pizza-${bundle.version}.jar">
+		    <manifest>
+			      <attribute name="Built-By" value="${user.name}"/>
+			      <attribute name="Bundle-Activator" value="nz.co.senanque.madura.bundle.BundleRootImpl"/>
+			      <attribute name="Bundle-Description" value="pizza.order.description"/>
+			      <attribute name="Bundle-Name" value="pizza"/>
+			      <attribute name="Bundle-Version" value="${bundle.version}"/>
+			      <attribute name="Bundle-Context" value="bundle-spring.xml"/>
+			</manifest>
+			<fileset dir="./bin" includes="**/*.xml,**/*.properties,**/*.class,**/*.png"/>
+		</jar>
+		<copy file="${basedir}/temp/pizza-${bundle.version}.jar" todir="/home/roger/madura3/madura-perspectives-manager/temp/bundles"/>
+		<!--<ant target="docs"/>-->
+		<property file="${basedir}/bin/${ant.project.name}.properties"/>
+		<echo message="${ant.project.name} distribute_copy:: complete"/>
+		<echo message="Revision Number  ${revision.number}"/>		
+		<echo message="Build Date    ${build.date}"/>		
+		<echo message="Build Version ${build.version}"/>
+	</target>
+
+	<target name="CopyToRemoteRepo-local">
+		<echo>Copying repo files to ${repo.dir}/${ant.project.name}/${build.version}</echo>
+		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" name="gcupload">
+			  <classpath>
+			  	<fileset dir="${basedir}/temp/buildlib" includes="*.jar" />
+			  </classpath>
+		</taskdef>
+		<gcupload 
+		        username="${svn.username}" 
+		        password="${svn.password}" 
+		        projectname="${ant.project.name}" 
+		        filename="${basedir}/temp/pdf/PizzaOrderBundle.pdf" 
+		        targetfilename="PizzaOrderBundle-${build.version}.pdf"
+		        summary="Documentation"/>
+		<property file="${basedir}/bin/${ant.project.name}.properties"/>
+		<echo message="Revison Number  ${revision.number}"/>		
+		<echo message="Build Date    ${build.date}"/>		
+		<echo message="Build Version ${build.version}"/>
+	</target>
+	
+</project>

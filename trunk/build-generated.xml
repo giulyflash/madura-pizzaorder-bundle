@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2012 Roger Parkinson
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may
+    not use this file except in compliance with the License. You may obtain
+    a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+<project name="xjc_generated" default="generateObjectsFromXSD" basedir="." xmlns:ivy="urn:ivy-ant">
+	
+	<tstamp />
+	<property file="build.properties"/>
+
+	<target name="generateObjectsFromXSD">
+		<taskdef name="xjc" classname="org.jvnet.jaxb2_commons.xjc.XJC2Task">
+		  <classpath>
+		  	<fileset dir="${basedir}/temp/lib" includes="*.jar" />
+		  	<pathelement location="${basedir}/test"/>
+		  </classpath>
+		</taskdef>
+		<delete dir="${basedir}/generated" failonerror="false"/>
+		<mkdir dir="${basedir}/generated"/>
+		<xjc extension="true" destdir="${basedir}/generated">
+			<arg line="-verbose -Xequals -Xmadura-objects -XtoString -XhashCode -Xannotate -Xvalidator -Xhyperjaxb3-ejb"/>
+			<schema dir=".">
+			 	<include name="${xsdfile}"/>
+			</schema>
+		</xjc>
+	</target>
+
+	<target name="generateRules">
+		<taskdef name="xjr" classname="nz.co.senanque.generate.XJR">
+		  <classpath>
+		  	<fileset dir="${basedir}/temp/lib" includes="*.jar" />
+		  	<pathelement location="${basedir}/bin"/>
+		  	<pathelement location="${basedir}/test"/>
+		  </classpath>
+		</taskdef>
+		<echo>Generating rules from: PizzaOrderRules.txt</echo>
+		<xjr destdir="${basedir}/generated" 
+			rules="${basedir}/PizzaOrderRules.txt" 
+			schema="${basedir}/PizzaOrder.xsd" 
+			packageName="nz.co.senanque.pizzaorder.rules"
+			xsdpackageName="nz.co.senanque.pizzaorder.instances"/>
+	</target>
+</project>
