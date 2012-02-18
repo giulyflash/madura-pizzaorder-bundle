@@ -30,6 +30,7 @@
 	<publications>
 	</publications>
 	<dependencies>
+		<dependency org="net.bluecow" name="ant-googlecode" rev="0.0.2" conf="build->default"/>
 		<dependency org="nz.co.senanque" name="maduradocs" rev="5.0.4" conf="docs->default"/>
 		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="1.7" conf="default->default">
 			<exclude org="org.hibernate" module="hibernate"/>
