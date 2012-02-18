@@ -54,8 +54,8 @@
 			</manifest>
 			<fileset dir="./bin" includes="**/*.xml,**/*.properties,**/*.class,**/*.png"/>
 		</jar>
-		<copy file="${basedir}/temp/pizza-${bundle.version}.jar" todir="/home/roger/madura3/madura-perspectives-manager/temp/bundles"/>
 		<ant target="docs"/>
+		<ant target="deploy"/>
 		<property file="${basedir}/bin/${ant.project.name}.properties"/>
 		<echo message="${ant.project.name} distribute_copy:: complete"/>
 		<echo message="Revision Number  ${revision.number}"/>		
@@ -63,8 +63,8 @@
 		<echo message="Build Version ${build.version}"/>
 	</target>
 	
-	<target name="deploy" if="deploy.target">
-		<copyfile dest="${deploy.target}/${project.name}.war" src="${basedir}/temp/${project.name}.war"/>
+	<target name="deploy" if="deploy.bundle.target">
+		<copy todir="${deploy.bundle.target}" file="${basedir}/temp/pizza-${bundle.version}.jar"/>
 	</target>
 
 	<target name="CopyToRemoteRepo-local">
@@ -81,6 +81,13 @@
 		        filename="${basedir}/temp/pdf/PizzaOrderBundle.pdf" 
 		        targetfilename="PizzaOrderBundle-${build.version}.pdf"
 		        summary="Documentation"/>
+		<gcupload 
+		        username="${svn.username}" 
+		        password="${svn.password}" 
+		        projectname="${ant.project.name}" 
+		        filename="${basedir}/temp/pizza-${build.version}.jar" 
+		        targetfilename="pizza-${build.version}.jar"
+		        summary="Deployable application bundle"/>
 		<property file="${basedir}/bin/${ant.project.name}.properties"/>
 		<echo message="Revison Number  ${revision.number}"/>		
 		<echo message="Build Date    ${build.date}"/>		

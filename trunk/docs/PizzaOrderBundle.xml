@@ -24,7 +24,7 @@
 		<h1 t="What is this?">
 		<p>This project builds a Madura Bundle <referenceLink t="MaduraBundles"/> suitable for adding to the Madura Perspectives Manager<referenceLink t="MaduraPerspectivesManager"/></p>
 		<p>The bundle contains the rules and object definitions for configuring a pizza order.</p>
-		<p>The documentation for this is in <referenceLink t="MaduraVaadinSupport"/></p>
+		<p>The documentation for this is in <referenceLink t="MaduraVaadinSupport"/> and <referenceLink t="MaduraPerspectivesManager"/></p>
 		</h1>
 	</body>
 	
