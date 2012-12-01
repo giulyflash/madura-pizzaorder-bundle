@@ -57,7 +57,7 @@
 		<ant target="docs"/>
 		<ant target="deploy"/>
 		<property file="${basedir}/bin/${ant.project.name}.properties"/>
-		<echo message="${ant.project.name} distribute_copy:: complete"/>
+		<echo message="${ant.project.name} build-jar:: complete"/>
 		<echo message="Revision Number  ${revision.number}"/>		
 		<echo message="Build Date    ${build.date}"/>		
 		<echo message="Build Version ${build.version}"/>
