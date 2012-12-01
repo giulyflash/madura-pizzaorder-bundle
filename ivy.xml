@@ -31,21 +31,21 @@
 	</publications>
 	<dependencies>
 		<dependency org="net.bluecow" name="ant-googlecode" rev="0.0.2" conf="build->default"/>
-		<dependency org="nz.co.senanque" name="maduradocs" rev="5.0.4" conf="docs->default"/>
-		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="1.7" conf="default->default">
+		<dependency org="nz.co.senanque" name="maduradocs" rev="5.0.5" conf="docs->default"/>
+		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="1.8" conf="default->default">
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-objects" rev="1.8" conf="generate->generate">
+		<dependency org="nz.co.senanque" name="madura-objects" rev="2.0" conf="generate->generate">
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-objects" rev="1.8" conf="default->default">
+		<dependency org="nz.co.senanque" name="madura-objects" rev="2.0" conf="default->default">
 			<exclude org="javax.xml.bind" module="jaxb"/>
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-rules" rev="1.0" conf="default,generate->default,generate">
+		<dependency org="nz.co.senanque" name="madura-rules" rev="2.0" conf="default,generate->default,generate">
 			<exclude org="nz.co.senanque" module="madura-objects"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.4" conf="default->default"/>
+		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.5" conf="default->default"/>
 		<dependency org="org.apache.ant" name="ant" rev="1.8.0" conf="generate->default"/>
 		<dependency org="javax.servlet" name="servletapi" rev="2.4" conf="compile->default"/>
 		<dependency org="org.apache.commons" name="commons-io" rev="1.4" conf="default->default"/>
@@ -54,8 +54,12 @@
         <dependency org="ch.qos" name="logback" rev="0.9.24" conf="default->default" /> 
         <exclude org="avalon-framework" ext="jar"/>
         <exclude org="logkit" ext="jar"/>
-        <exclude org="*" ext="*" type="javadoc"/>
-        <exclude org="*" ext="*" type="doc"/>
-        <!--<exclude org="*" ext="*" type="source"/>-->
+        <exclude org="javax.activation" ext="*" type="javadoc"/>
+        <exclude org="com.vaadin" ext="*" type="javadoc"/>
+        <exclude org="org.jboss" ext="*" type="javadoc"/>
+        <exclude org="net.sourceforge.ehcache" ext="*" type="javadoc"/>
+        <exclude org="javax.persistence" ext="*" type="javadoc"/>
+        <exclude org="org.junit" ext="*" type="javadoc"/>
+        <exclude org="javax.xml.bind" ext="*" type="javadoc"/>
 	</dependencies>
 </ivy-module>
