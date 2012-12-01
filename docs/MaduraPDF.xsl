@@ -14,6 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!-- temp -->
 
 	<!-- implement footnotes -->
       <xsl:stylesheet version="2.0" 
@@ -160,7 +161,6 @@
             <xsl:apply-templates select="/doc/title/reviewers"/>
 		</xsl:template>
 
-		<!-- just dumps the log. Needs to do more about formatting the log, though -->		
         <xsl:template match="log">
         	<xsl:choose>
         	<xsl:when test="count(logentry) &gt; 0">
@@ -232,11 +232,9 @@
             		<xsl:text>.reference-description</xsl:text>
             	</xsl:attribute>
 				<xsl:number format="[1]" level="any" from="/" count="reference"/>
-            	<xsl:text> </xsl:text>
             	<xsl:choose>
             	
             	<xsl:when test="string-length(@url) &gt; 0">
-	            	<xsl:text> </xsl:text>
 					<fo:basic-link color="blue" text-decoration="underline">
 		            	<xsl:attribute name="external-destination">
 		            		<xsl:text>url(</xsl:text>
@@ -864,6 +862,9 @@
          <xsl:template match="td">
 			<fo:table-cell xsl:use-attribute-sets="cell-padding">
 				<fo:block xsl:use-attribute-sets="normal">
+				<xsl:if test="@align = 'right'">
+					<xsl:attribute name="text-align">right</xsl:attribute>
+				</xsl:if>
          			<xsl:apply-templates/>
          		</fo:block>
 			</fo:table-cell>
@@ -872,6 +873,9 @@
          <xsl:template match="th">
 			<fo:table-cell xsl:use-attribute-sets="cell-padding">
 				<fo:block xsl:use-attribute-sets="th">
+				<xsl:if test="@align = 'right'">
+					<xsl:attribute name="text-align">right</xsl:attribute>
+				</xsl:if>
          			<xsl:apply-templates/>
          		</fo:block>
 			</fo:table-cell>
@@ -1170,8 +1174,7 @@
 		</xsl:template>
 
          <xsl:template match="figureLink">
-            <fo:wrapper font-style="italic">
-	         	<fo:basic-link>
+	         	<fo:basic-link color="blue">
 	 	          	<xsl:attribute name="internal-destination">
 	 	          		<xsl:value-of select="@t"/>
 	            		<xsl:text>.figure-description</xsl:text>
@@ -1181,7 +1184,6 @@
 	            		<xsl:with-param name="content" select="@t"/>
 	            	</xsl:call-template>
 	         	</fo:basic-link>
-            </fo:wrapper>
           </xsl:template>
           
          <xsl:template name="figureLinkRef">
@@ -1200,19 +1202,17 @@
 			  </xsl:for-each>
           </xsl:template>
 
-         <xsl:template match="sectionLink">
-            <fo:wrapper font-style="italic">
-	         	<fo:basic-link>
+          <xsl:template match="sectionLink">
+	         	<fo:basic-link color="blue">
 	 	          	<xsl:attribute name="internal-destination">
 	 	          		<xsl:value-of select="@t"/>
 	            		<xsl:text>.property-description</xsl:text>
 	            	</xsl:attribute>
-					<!--  -->
+	            	<xsl:text>Section </xsl:text>
 	            	<xsl:call-template name="linkRef">
 	            		<xsl:with-param name="content" select="@t"/>
 	            	</xsl:call-template>
 	         	</fo:basic-link>
-            </fo:wrapper>
           </xsl:template>
           
          <xsl:template name="linkRef">
@@ -1220,70 +1220,54 @@
           		<xsl:for-each select="key('sections',$content)">
   			      	<xsl:choose>
 			          <xsl:when test="name() = 'h1'">
-			            <fo:inline><xsl:number format="1"/></fo:inline>
+				        	<xsl:number format="1" level="any" from="/" count="h1|process-log|process-references|process-reviewers"/>
 			          </xsl:when>
 			          <xsl:when test="name() = 'h2'">
-			        	<fo:inline>
 				        	<xsl:number format="1." level="any" from="/" count="h1|process-log|process-references|process-reviewers"/>
 							<xsl:number format="1" level="any" from="h1|process-log|process-references|process-reviewers" count="h2"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:when test="name() = 'h3'">
-			        	<fo:inline>
 				        	<xsl:number format="1." level="any" from="/" count="h1|process-log|process-references|process-reviewers"/>
 							<xsl:number format="1." level="any" from="h1|process-log|process-references|process-reviewers" count="h2"/>
 							<xsl:number format="1" level="any" from="h2" count="h3"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:when test="name() = 'h4'">
-			        	<fo:inline>
 				        	<xsl:number format="1." level="any" from="/" count="h1|process-log|process-references|process-reviewers"/>
 							<xsl:number format="1." level="any" from="h1|process-log|process-references|process-reviewers" count="h2"/>
 							<xsl:number format="1." level="any" from="h2" count="h3"/>
 							<xsl:number format="1" level="any" from="h3" count="h4"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:when test="name() = 'h5'">
-			        	<fo:inline>
 				        	<xsl:number format="1." level="any" from="/" count="h1|process-log|process-references|process-reviewers"/>
 							<xsl:number format="1." level="any" from="h1|process-log|process-references|process-reviewers" count="h2"/>
 							<xsl:number format="1." level="any" from="h2" count="h3"/>
 							<xsl:number format="1." level="any" from="h3" count="h4"/>
 							<xsl:number format="1" level="any" from="h4" count="h5"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:when test="name() = 'a1'">
-			            <fo:inline><xsl:number format="A"/></fo:inline>
+			            <xsl:number format="A"/>
 			          </xsl:when>
 			          <xsl:when test="name() = 'a2'">
-			        	<fo:inline>
 				        	<xsl:number format="A." level="any" from="/" count="a1"/>
 							<xsl:number format="1" level="any" from="a1" count="a2"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:when test="name() = 'a3'">
-			        	<fo:inline>
 				        	<xsl:number format="A." level="any" from="/" count="a1"/>
 							<xsl:number format="1." level="any" from="a1" count="a2"/>
 							<xsl:number format="1" level="any" from="a2" count="a3"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:when test="name() = 'a4'">
-			        	<fo:inline>
 				        	<xsl:number format="A." level="any" from="/" count="a1"/>
 							<xsl:number format="1." level="any" from="a1" count="a2"/>
 							<xsl:number format="1." level="any" from="a2" count="a3"/>
 							<xsl:number format="1" level="any" from="a3" count="a4"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:when test="name() = 'a5'">
-			        	<fo:inline>
 				        	<xsl:number format="A." level="any" from="/" count="a1"/>
 							<xsl:number format="1." level="any" from="a1" count="a2"/>
 							<xsl:number format="1." level="any" from="a2" count="a3"/>
 							<xsl:number format="1." level="any" from="a3" count="a4"/>
 							<xsl:number format="1" level="any" from="a4" count="a5"/>
-						</fo:inline>
 			          </xsl:when>
 			          <xsl:otherwise>
 					      <xsl:message terminate="yes">
@@ -1291,8 +1275,6 @@
 					      </xsl:message>
 			          </xsl:otherwise>
 			        </xsl:choose>
-          			
-          			<!--<xsl:value-of select="@t"/>-->
 			  </xsl:for-each>
           </xsl:template>
 
@@ -1416,7 +1398,7 @@
           	<xsl:for-each select="key('references',$content)">
             	<xsl:if test="string-length(@url) &gt; 0">
             	
-            	<fo:basic-link color="blue" text-decoration="underline">
+            	<fo:basic-link color="blue">
 		            	<xsl:attribute name="external-destination">
 		            		<xsl:text>url(</xsl:text>
 		            		<xsl:value-of select="@url" />
@@ -1426,7 +1408,7 @@
 				</fo:basic-link>
 		</xsl:if>
             	<xsl:if test="string-length(@url) &lt;= 0">
-	         	<fo:basic-link>
+	         	<fo:basic-link color="blue">
 	 	          	<xsl:attribute name="internal-destination">
 	 	          		<xsl:value-of select="@t"/>
 	            		<xsl:text>.reference-description</xsl:text>

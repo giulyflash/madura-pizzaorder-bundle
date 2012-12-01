@@ -14,6 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!-- temp -->
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output
@@ -772,10 +773,24 @@
 		<!-- do nothing -->
 	</xsl:template>
 	<xsl:template match="th">
-		<th><xsl:apply-templates /></th>
+		<xsl:choose>
+			<xsl:when test="@align = 'right'">
+				<th align="right"><xsl:apply-templates /></th>
+			</xsl:when>
+			<xsl:otherwise>
+				<th><xsl:apply-templates /></th>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="td">
-		<td><xsl:apply-templates /></td>
+		<xsl:choose>
+			<xsl:when test="@align = 'right'">
+				<td align="right"><xsl:apply-templates /></td>
+			</xsl:when>
+			<xsl:otherwise>
+				<td><xsl:apply-templates /></td>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="bold">
 		<bold><xsl:apply-templates /></bold>
@@ -871,15 +886,19 @@
 				<xsl:number format="[1]" level="any" from="/" count="reference"/>
 			</a>
 		</xsl:if>
-		<xsl:text> </xsl:text>
 		</xsl:for-each>
+		<xsl:if test="1 &gt; count(key('references',$content))">
+			<emph><xsl:text>invalid reference:</xsl:text><xsl:value-of select="$content"/></emph>
+		</xsl:if>
           </xsl:template>
 
          <xsl:template match="sectionLink">
+          		<xsl:text> </xsl:text>
 	         	<a>
 	 	          	<xsl:attribute name="href">
 	 	          		<xsl:value-of select="concat('#reference.',@t)"/>
-				</xsl:attribute>
+					</xsl:attribute>
+					<xsl:text>Section </xsl:text>
 	            	<xsl:call-template name="sectionLinkRef">
 	            		<xsl:with-param name="content" select="@t"/>
 	            	</xsl:call-template>
@@ -891,7 +910,7 @@
           		<xsl:for-each select="key('sections',$content)">
   			      	<xsl:choose>
 			          <xsl:when test="name() = 'h1'">
-				        	<xsl:number format="1." level="any" from="/" count="h1|process-references|process-log"/>
+				        	<xsl:number format="1" level="any" from="/" count="h1|process-references|process-log"/>
 			          </xsl:when>
 			          <xsl:when test="name() = 'h2'">
 			        	
@@ -924,7 +943,7 @@
 						
 			          </xsl:when>
 			          <xsl:when test="name() = 'a1'">
-				        	<xsl:number format="A." level="any" from="/" count="a1"/>
+				        	<xsl:number format="A" level="any" from="/" count="a1"/>
 			          </xsl:when>
 			          <xsl:when test="name() = 'a2'">
 			        	
@@ -935,30 +954,33 @@
 			          <xsl:when test="name() = 'a3'">
 			        	
 				        	<xsl:number format="A." level="any" from="/" count="a1"/>
-							<xsl:number format="1" level="any" from="a1" count="a2"/>
+							<xsl:number format="1." level="any" from="a1" count="a2"/>
 							<xsl:number format="1" level="any" from="a2" count="a3"/>
 						
 			          </xsl:when>
 			          <xsl:when test="name() = 'a4'">
 			        	
 				        	<xsl:number format="A." level="any" from="/" count="a1"/>
-							<xsl:number format="1" level="any" from="a1" count="a2"/>
-							<xsl:number format="1" level="any" from="a2" count="a3"/>
+							<xsl:number format="1." level="any" from="a1" count="a2"/>
+							<xsl:number format="1." level="any" from="a2" count="a3"/>
 							<xsl:number format="1" level="any" from="a3" count="a4"/>
 						
 			          </xsl:when>
 			          <xsl:when test="name() = 'a5'">
 			        	
 				        	<xsl:number format="A." level="any" from="/" count="a1"/>
-							<xsl:number format="1" level="any" from="a1" count="a2"/>
-							<xsl:number format="1" level="any" from="a2" count="a3"/>
-							<xsl:number format="1" level="any" from="a3" count="a4"/>
+							<xsl:number format="1." level="any" from="a1" count="a2"/>
+							<xsl:number format="1." level="any" from="a2" count="a3"/>
+							<xsl:number format="1." level="any" from="a3" count="a4"/>
 							<xsl:number format="1" level="any" from="a4" count="a5"/>
 						
 			          </xsl:when>
 			        </xsl:choose>
           			
 			  </xsl:for-each>
+				<xsl:if test="1 &gt; count(key('sections',$content))">
+					<emph><xsl:text>invalid section reference:</xsl:text><xsl:value-of select="$content"/></emph>
+				</xsl:if>
           </xsl:template>
 	 
 	<xsl:template match="img">
@@ -993,6 +1015,7 @@
 	</xsl:template>
  
       <xsl:template match="figureLink">
+      	<xsl:text> </xsl:text>
 		<a>
 			<xsl:attribute name="href">
 				<xsl:value-of select="concat('#figure.',@t)" />
@@ -1009,6 +1032,9 @@
           	<xsl:for-each select="key('figures',$content)">
 			<xsl:number level="any" from="/" count="img" format="(1)"/>
 		</xsl:for-each>
+				<xsl:if test="1 &gt; count(key('figures',$content))">
+					<emph><xsl:text>invalid figure reference:</xsl:text><xsl:value-of select="$content"/></emph>
+				</xsl:if>
           </xsl:template>
 
       <xsl:template match="tableLink">
@@ -1028,6 +1054,9 @@
           	<xsl:for-each select="key('tables',$content)">
           		<xsl:number format="[1]" level="any" from="/" count="table[string-length(@t) &gt; 0]"/>
 		</xsl:for-each>
+				<xsl:if test="1 &gt; count(key('tables',$content))">
+					<emph><xsl:text>invalid table reference:</xsl:text><xsl:value-of select="$content"/></emph>
+				</xsl:if>
           </xsl:template>
 
 </xsl:stylesheet>
