@@ -17,7 +17,8 @@
  * 
  */
 package nz.co.senanque.pizzabundle;
-import nz.co.senanque.vaadin.MaduraForm;
+import nz.co.senanque.vaadinsupport.MaduraForm;
+import nz.co.senanque.vaadinsupport.application.MaduraSessionManager;
 
 import com.vaadin.ui.VerticalLayout;
 
@@ -33,10 +34,8 @@ import com.vaadin.ui.VerticalLayout;
 public class ProductForm extends MaduraForm {
     private static final long serialVersionUID = 1L;
     
-	public ProductForm() {
-		
-		this.setLayout(new VerticalLayout());
-	
+	public ProductForm(MaduraSessionManager maduraSessionManager) {
+		super(new VerticalLayout(),maduraSessionManager);
 	}
 
 }

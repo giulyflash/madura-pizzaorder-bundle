@@ -30,7 +30,7 @@
 	
     <path id="libs">
     	<fileset dir="${basedir}/temp/compile"/>
-    	<fileset dir="${basedir}" includes="*.jar"/>
+    	<fileset dir="${basedir}/temp/lib" includes="*.jar"/>
     </path>
 	<import file="ant-targets.xml"/>
 
@@ -74,6 +74,7 @@
 			  	<fileset dir="${basedir}/temp/buildlib" includes="*.jar" />
 			  </classpath>
 		</taskdef>
+		<!--
 		<gcupload 
 		        username="${svn.username}" 
 		        password="${svn.password}" 
@@ -81,6 +82,7 @@
 		        filename="${basedir}/temp/pdf/PizzaOrderBundle.pdf" 
 		        targetfilename="PizzaOrderBundle-${build.version}.pdf"
 		        summary="Documentation"/>
+		        -->
 		<gcupload 
 		        username="${svn.username}" 
 		        password="${svn.password}" 

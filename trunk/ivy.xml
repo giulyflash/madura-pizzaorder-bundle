@@ -25,33 +25,36 @@
 		<conf name="default"/>
 		<conf name="test" extends="compile,generate"/>
         <conf name="docs" visibility="private"/>
-		<conf name="build" visibility="private"/>
+		<conf name="build" extends="generate" visibility="private"/>
 	</configurations>
 	<publications>
 	</publications>
 	<dependencies>
 		<dependency org="net.bluecow" name="ant-googlecode" rev="0.0.2" conf="build->default"/>
 		<dependency org="nz.co.senanque" name="maduradocs" rev="5.0.5" conf="docs->default"/>
-		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="1.8" conf="default->default">
+		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="2.0" conf="default->default">
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-objects" rev="2.0" conf="generate->generate">
-			<exclude org="org.hibernate" module="hibernate"/>
-		</dependency>
-		<dependency org="nz.co.senanque" name="madura-objects" rev="2.0" conf="default->default">
+		<dependency org="com.vaadin" name="vaadin" rev="6.8.4" conf="default->default" />
+		<dependency org="nz.co.senanque" name="madura-objects" rev="2.0" conf="default,generate->default,generate">
 			<exclude org="javax.xml.bind" module="jaxb"/>
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
 		<dependency org="nz.co.senanque" name="madura-rules" rev="2.0" conf="default,generate->default,generate">
 			<exclude org="nz.co.senanque" module="madura-objects"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.5" conf="default->default"/>
+        <dependency org="org.springframework" name="spring" rev="3.0.6" conf="generate->context,context-support">
+	        <exclude org="javax.jms" module="jms"/>
+	        <exclude org="org.apache.commons" module="commons-logging"/>
+	    </dependency>
+		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.7" conf="default->default"/>
+		<dependency org="javax.xml.bind" name="jaxb" rev="2.2" conf="generate->default"/>
 		<dependency org="org.apache.ant" name="ant" rev="1.8.0" conf="generate->default"/>
 		<dependency org="javax.servlet" name="servletapi" rev="2.4" conf="compile->default"/>
 		<dependency org="org.apache.commons" name="commons-io" rev="1.4" conf="default->default"/>
 		<dependency org="net.sourceforge.antcontrib" name="ant-contrib" rev="1.0b3" conf="build->default"/>
-        <dependency org="org.slf4j" name="slf4j" rev="1.6.1" conf="default->jcl-migration"/>
-        <dependency org="ch.qos" name="logback" rev="0.9.24" conf="default->default" /> 
+        <dependency org="org.slf4j" name="slf4j" rev="1.6.1" conf="generate,default->jcl-migration"/>
+        <dependency org="ch.qos" name="logback" rev="0.9.24" conf="generate,default->default" /> 
         <exclude org="avalon-framework" ext="jar"/>
         <exclude org="logkit" ext="jar"/>
         <exclude org="javax.activation" ext="*" type="javadoc"/>
