@@ -31,23 +31,23 @@
 	</publications>
 	<dependencies>
 		<dependency org="net.bluecow" name="ant-googlecode" rev="0.0.2" conf="build->default"/>
-		<dependency org="nz.co.senanque" name="maduradocs" rev="5.0.5" conf="docs->default"/>
-		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="2.0" conf="default->default">
+		<dependency org="nz.co.senanque" name="maduradocs" rev="5.0.6" conf="docs->default"/>
+		<dependency org="nz.co.senanque" name="madura-vaadinsupport" rev="2.3" conf="default->default">
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
 		<dependency org="com.vaadin" name="vaadin" rev="6.8.4" conf="default->default" />
-		<dependency org="nz.co.senanque" name="madura-objects" rev="2.0" conf="default,generate->default,generate">
+		<dependency org="nz.co.senanque" name="madura-objects" rev="2.1" conf="default,generate->default,generate">
 			<exclude org="javax.xml.bind" module="jaxb"/>
 			<exclude org="org.hibernate" module="hibernate"/>
 		</dependency>
-		<dependency org="nz.co.senanque" name="madura-rules" rev="2.0" conf="default,generate->default,generate">
+		<dependency org="nz.co.senanque" name="madura-rules" rev="2.1" conf="default,generate->default,generate">
 			<exclude org="nz.co.senanque" module="madura-objects"/>
 		</dependency>
         <dependency org="org.springframework" name="spring" rev="3.0.6" conf="generate->context,context-support">
 	        <exclude org="javax.jms" module="jms"/>
 	        <exclude org="org.apache.commons" module="commons-logging"/>
 	    </dependency>
-		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.7" conf="default->default"/>
+		<dependency org="nz.co.senanque" name="madura-bundle" rev="3.8" conf="default->default"/>
 		<dependency org="javax.xml.bind" name="jaxb" rev="2.2" conf="generate->default"/>
 		<dependency org="org.apache.ant" name="ant" rev="1.8.0" conf="generate->default"/>
 		<dependency org="javax.servlet" name="servletapi" rev="2.4" conf="compile->default"/>
