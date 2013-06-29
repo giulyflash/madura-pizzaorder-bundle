@@ -170,7 +170,7 @@
 			<xs:element name="tr" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="th" type="xs:string" minOccurs="0"
+						<xs:element name="th" minOccurs="0"
 							maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>
